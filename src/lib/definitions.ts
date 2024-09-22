@@ -6,7 +6,7 @@ export const LoginFormSchema = z.object({
 })
 
 export const RegisterFormSchema = z.object({
-	email: z.string().email().regex(/^[a-zA-Z]+(\.[a-zA-Z]+)*\.\d+@dartmouth\.edu$/, { message : "Email must be valid undergraduate dartmouth email"}),
+	email: z.string().email().regex(/^[a-zA-Z]+(\.[a-zA-Z]+)*\.\d+@dartmouth\.edu$/, { message : "Email must be valid dartmouth address"}),
 	username: z.string().min(3).max(150),
 	password: z.string().min(8, { message: "Password must be at least 8 characters long" })
 						.max(20, { message: "Password should not exceed 20 characters long"})

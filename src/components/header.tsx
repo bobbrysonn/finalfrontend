@@ -1,7 +1,8 @@
-import Link from "next/link"
-import { CircleUser, AlignLeft, Search, ScrollText } from "lucide-react"
+import Link from "next/link";
+import { CircleUser, AlignLeft, Search, ScrollText } from "lucide-react";
+import { auth, signOut } from "@/lib/auth";
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,13 +10,15 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/ui/input"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { ModeToggle } from "@/components/ui/mode-toggle"
+} from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { ModeToggle } from "@/components/ui/mode-toggle";
+import { redirect } from "next/navigation";
 
-export default function Header() {
-  const user = false
+export default async function Header() {
+  const session = await auth();
+  const user = session?.user;
 
   return (
     <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
@@ -25,17 +28,12 @@ export default function Header() {
           className="flex items-center gap-2 text-lg font-semibold md:text-base shrink-0"
         >
           <ScrollText className="h-6 w-6" />
-          <span className="text-sm">Layup List</span>
           <span className="sr-only">Layup List</span>
         </Link>
       </nav>
       <Sheet>
         <SheetTrigger asChild>
-          <Button
-            variant="outline"
-            size="icon"
-            className="shrink-0 md:hidden"
-          >
+          <Button variant="outline" size="icon" className="shrink-0 md:hidden">
             <AlignLeft className="h-5 w-5" />
             <span className="sr-only">Toggle navigation menu</span>
           </Button>
@@ -74,7 +72,11 @@ export default function Header() {
             </form>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="secondary" size="icon" className="rounded-full">
+                <Button
+                  variant="secondary"
+                  size="icon"
+                  className="rounded-full"
+                >
                   <CircleUser className="h-5 w-5" />
                   <span className="sr-only">Toggle user menu</span>
                 </Button>
@@ -85,17 +87,25 @@ export default function Header() {
                 <DropdownMenuItem>Profile</DropdownMenuItem>
                 <DropdownMenuItem>Settings</DropdownMenuItem>
                 <DropdownMenuSeparator></DropdownMenuSeparator>
-                <DropdownMenuItem><Link href="/api/auth/logout">Logout</Link></DropdownMenuItem>
+                <DropdownMenuItem>
+                  <form
+                    action={async () => {
+                      "use server";
+                      await signOut({ redirect: false });
+
+                      redirect("/auth/login");
+                    }}
+                    className="cursor-pointer"
+                  >
+                    <button type="submit">Sign out</button>
+                  </form>
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
+            <ModeToggle />
           </>
         )}
-
-        <div className="ml-auto">
-          <ModeToggle />
-        </div>
-        
       </div>
     </header>
-  )
+  );
 }
