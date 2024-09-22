@@ -10,7 +10,7 @@ export async function activateEmail(userId: string, token: string) {
   /* Activate email on the /auth/users/activation/ endpoint */
   try {
     const response = await fetch(
-      "http://localhost:8000/auth/users/activation/",
+      `${process.env.API_ROOT}/auth/users/activation/`,
       {
         method: "POST",
         headers: {
@@ -86,7 +86,7 @@ export async function register(formData: z.infer<typeof RegisterFormSchema>) {
 
   try {
     /* Register user on the /auth/users/ endpoint */
-    const response = await fetch("http://localhost:8000/auth/users/", {
+    const response = await fetch(`${process.env.API_ROOT}/auth/users/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
