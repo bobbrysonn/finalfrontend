@@ -27,7 +27,14 @@ import { Input } from "@/components/ui/input";
 export default function RegisterForm({
   register,
 }: {
-  register: (data: z.infer<typeof RegisterFormSchema>) => Promise<any>;
+  register: (
+    data: z.infer<typeof RegisterFormSchema>
+  ) => Promise<{
+    success?: boolean;
+    error?: boolean;
+    message?: string;
+    errorBody?: { username?: string; email?: string };
+  }>;
 }) {
   const form = useForm<z.infer<typeof RegisterFormSchema>>({
     defaultValues: {
