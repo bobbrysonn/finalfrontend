@@ -57,7 +57,7 @@ export default async function Header() {
         </SheetContent>
       </Sheet>
       <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
-        {user && (
+        {user ? (
           <>
             <form className="ml-auto flex-1 sm:flex-initial">
               <div className="relative">
@@ -104,6 +104,10 @@ export default async function Header() {
             </DropdownMenu>
             <ModeToggle />
           </>
+        ) : (
+          <Link href="/auth/login" className="ml-auto">
+            <Button>Sign in</Button>
+          </Link>
         )}
       </div>
     </header>

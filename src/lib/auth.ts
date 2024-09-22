@@ -6,18 +6,18 @@ import { LoginFormSchema } from "./definitions"
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Credentials({
-      credentials: { username: {}, password: {} },
+      credentials: { email: {}, password: {} },
       authorize: async (credentials) => {
         let user = null
 
         try {
-          const { username, password } = LoginFormSchema.parse(credentials)
+          const { email, password } = LoginFormSchema.parse(credentials)
 
           /* Authenticate user */
           const response = await fetch("http://127.0.0.1:8000/auth/jwt/create/", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ username, password }),
+            body: JSON.stringify({ email, password }),
           })
 
           /* Handle response */

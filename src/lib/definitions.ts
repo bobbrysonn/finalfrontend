@@ -1,7 +1,7 @@
 import { z } from "zod"
 
 export const LoginFormSchema = z.object({
-	username: z.string().min(3).max(150),
+	email: z.string().email().regex(/^[a-zA-Z]+(\.[a-zA-Z]+)*\.\d+@dartmouth\.edu$/, { message : "Email must be valid dartmouth address"}),
 	password: z.string().min(8)
 })
 

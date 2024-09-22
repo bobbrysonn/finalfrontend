@@ -41,7 +41,9 @@ export async function activateEmail(userId: string, token: string) {
   }
 }
 
-export async function resendActivationEmail(email: string) {}
+export async function resendActivationEmail(email: string) {
+  console.log(email);
+}
 
 export async function login(formData: z.infer<typeof LoginFormSchema>) {
   const res: { success?: boolean; error?: boolean; message?: string } = {};

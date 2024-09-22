@@ -28,12 +28,14 @@ import { useToast } from "@/hooks/use-toast";
 export default function LoginForm({
   login,
 }: {
-  login: (data: z.infer<typeof LoginFormSchema>) => Promise<any>;
+  login: (
+    data: z.infer<typeof LoginFormSchema>
+  ) => Promise<{ success?: boolean; error?: boolean; message?: string }>;
 }) {
   const { toast } = useToast();
   const form = useForm<z.infer<typeof LoginFormSchema>>({
     defaultValues: {
-      username: "",
+      email: "",
       password: "",
     },
     resolver: zodResolver(LoginFormSchema),
@@ -53,7 +55,7 @@ export default function LoginForm({
       <CardHeader>
         <CardTitle className="text-2xl">Login</CardTitle>
         <CardDescription>
-          Enter your username and password to login
+          Enter your dartmouth email and password to login
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -61,19 +63,19 @@ export default function LoginForm({
           <form onSubmit={form.handleSubmit(handleLogin)}>
             <FormField
               control={form.control}
-              name="username"
+              name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="usernamegiven">Username</FormLabel>
+                  <FormLabel htmlFor="emailgiven">Email</FormLabel>
                   <Input
                     {...field}
-                    type="text"
-                    id="usernamegiven"
-                    autoComplete="username"
-                    placeholder="johndoe"
+                    type="email"
+                    id="emailgiven"
+                    autoComplete="email"
+                    placeholder="john.doe.26@dartmouth.edu"
                     required
                   />
-                  <FormDescription>Enter your username</FormDescription>
+                  <FormDescription>Enter your email</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
