@@ -67,7 +67,6 @@ export default function RegisterForm({
   }
 
   return (
-    <main className="flex items-center justify-center min-h-[85vh]">
       <Card className="mx-auto max-w-[32rem]">
         <CardHeader>
           <CardTitle className="text-2xl">Register</CardTitle>
@@ -180,6 +179,5 @@ export default function RegisterForm({
           </div>
         </CardContent>
       </Card>
-    </main>
   );
 }

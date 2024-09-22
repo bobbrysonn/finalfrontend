@@ -4,7 +4,6 @@ import "./globals.css";
 
 import { ThemeProvider } from "@/providers/theme-provider";
 import { ActivationEmailStoreProvider } from "@/providers/activationemail-store-provider";
-import Header from "@/components/header";
 import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({
@@ -32,7 +31,6 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <ActivationEmailStoreProvider>
-            <Header />
             {children}
             <Toaster />
           </ActivationEmailStoreProvider>
