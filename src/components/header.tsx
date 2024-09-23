@@ -15,20 +15,38 @@ import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import { redirect } from "next/navigation";
+import Image from "next/image";
 
 export default async function Header() {
   const session = await auth();
   const user = session?.user;
 
   return (
-    <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
+    <header className="top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
       <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
         <Link
           href="/"
           className="flex items-center gap-2 text-lg font-semibold md:text-base shrink-0"
         >
-          <ScrollText className="h-6 w-6" />
-          <span className="sr-only">Layup List</span>
+          <Image
+            src="/images/brand.png"
+            alt="Based Reviews"
+            width={30}
+            height={30}
+          />
+          <span className="sr-only">Based Reviews</span>
+        </Link>
+        <Link
+          href="/"
+          className="text-muted-foreground transition-colors hover:text-foreground"
+        >
+          Home
+        </Link>
+        <Link
+          href="/departments"
+          className="text-muted-foreground transition-colors hover:text-foreground"
+        >
+          Departments
         </Link>
       </nav>
       <Sheet>

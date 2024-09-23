@@ -12,8 +12,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Layup List",
-  description: "Course review website for dartmouth students",
+  title: "Based Reviews",
+  description: "Based course reviews for dartmouth students",
 };
 
 export default function RootLayout({
