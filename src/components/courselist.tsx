@@ -37,9 +37,7 @@ export default async function CourseList() {
             <TableRow>
               <TableHead>Code</TableHead>
               <TableHead>Department Name</TableHead>
-              <TableHead className="hidden md:table-cell">
-                Number of courses
-              </TableHead>
+              <TableHead>Number of courses</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

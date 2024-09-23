@@ -35,7 +35,7 @@ export default function DynamicBreadcrumb() {
                 <ChevronRightIcon className="h-4 w-4" />
               </BreadcrumbSeparator>
               {isLast ? (
-                <span className="font-medium text-white capitalize">
+                <span className="font-medium text-foreground capitalize">
                   {segment}
                 </span>
               ) : (

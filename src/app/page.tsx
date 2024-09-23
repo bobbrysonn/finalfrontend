@@ -1,33 +1,46 @@
-import Header from "@/components/header";
-import Link from "next/link";
 import Image from "next/image";
+import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <>
-      <Header />
-      <main className="flex items-center justify-center min-h-[45vh] px-4">
-        <section className="text-center">
-          <div className="flex justify-center mb-2">
-            <Image
-              src="/images/brand.png"
-              alt="Based Reviews"
-              width={100}
-              height={100}
-            />
-          </div>
-          <h1 className="text-3xl">Based Reviews</h1>
-          <p>Dartmouth Course Reviews and Recommendations</p>
-          <p className="text-muted-foreground">1 review and counting</p>
+    <main className="min-h-[65vh] flex flex-col items-center justify-center p-4">
+      <div className="text-center mb-8">
+        <div className="w-40 md:w-52 mx-auto mb-4 flex items-center justify-center">
+          <Image
+            src="/images/brand-body.png"
+            alt="Based Reviews"
+            width={256}
+            height={256}
+          />
+        </div>
+        <h1 className="text-4xl font-medium mb-2">Based Reviews</h1>
+        <h2 className="text-xl mb-2">
+          Dartmouth Course Reviews, Rankings, and Recommendations
+        </h2>
+        <p className="text-muted-foreground text-sm">
+          32,733 reviews and counting
+        </p>
+      </div>
 
-          <div className="mt-4">
-            <Link href="/register">
-              <Button>Get Started</Button>
-            </Link>
-          </div>
-        </section>
-      </main>
-    </>
+      <div className="w-full max-w-md mb-6">
+        <div className="flex flex-col gap-3 items-center justify-center">
+          <Input
+            type="text"
+            placeholder="Search for Courses..."
+            className=""
+            id="search-body"
+          />
+          <Button type="submit" variant="outline">
+            Search
+          </Button>
+        </div>
+      </div>
+      {/* <div className="flex space-x-4 mb-8">
+        <Button variant="outline">See Best Classes</Button>
+        <Button variant="outline">See Layups</Button>
+        <Button variant="outline">Browse</Button>
+      </div> */}
+    </main>
   );
 }

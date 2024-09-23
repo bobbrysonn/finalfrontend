@@ -20,14 +20,13 @@ import {
 import type { Course } from "@/lib/definitions";
 
 export default async function DepartmentCourseList({
-  departmentName,
   departmentCode,
 }: {
   departmentName: string;
   departmentCode: string;
 }) {
   const data = await fetch(
-    `${process.env.API_ROOT}/api/department/${departmentCode}/`
+    `${process.env.API_ROOT}/api/department/${departmentCode}/`,
   );
   const courses: [Course] = await data.json();
 
