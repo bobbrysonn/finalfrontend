@@ -24,7 +24,7 @@ export default async function Header() {
 
   return (
     <header className="flex h-16 items-center justify-center gap-4 px-4 md:px-6 rounded-sm">
-      <div className="flex border-b items-center gap-4 max-w-screen-lg py-2 md:py-3 w-full">
+      <div className="flex border-b items-center gap-4 max-w-screen-xl py-2 md:py-3 w-full">
         <NavLinks />
         <Sheet>
           <SheetTrigger asChild>

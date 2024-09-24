@@ -55,12 +55,18 @@ export default async function DepartmentCourseList({
               return (
                 <TableRow key={course.id}>
                   <TableCell className="font-medium">
-                    <Link href={""} className="hover:underline">
+                    <Link
+                      href={`/departments/${code}/${number}?name=${rest.join(" ")}`}
+                      className="hover:underline"
+                    >
                       {`${code} ${number}`}
                     </Link>
                   </TableCell>
                   <TableCell>
-                    <Link href={course.url} className="hover:underline">
+                    <Link
+                      href={`/departments/${code}/${number}?name=${rest.join(" ")}`}
+                      className="hover:underline"
+                    >
                       {rest.join(" ")}
                     </Link>
                   </TableCell>
