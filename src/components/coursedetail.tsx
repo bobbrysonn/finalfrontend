@@ -19,6 +19,7 @@ import {
 import { ChevronUp, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import ReviewForm from "@/components/reviewform";
 
 export default function CourseDetail() {
   const [goodCount, setGoodCount] = useState(8);
@@ -77,7 +78,7 @@ export default function CourseDetail() {
       </CardHeader>
       <CardContent>
         <h4 className="font-semibold text-xl">Description</h4>
-        <p>
+        <p className="text-[#333333] dark:text-muted-foreground">
           Sed ut perspiciatis unde omnis iste natus error sit voluptatem
           accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae
           ab illo inventore veritatis et quasi architecto beatae vitae dicta
@@ -167,7 +168,7 @@ export default function CourseDetail() {
         </Table>
 
         {/* Reviews list */}
-        <h5 className="font-semibold mt-10 text-xl">
+        <h5 className="font-semibold mt-10 mb-2 text-xl">
           Reviews ({reviews.length})
         </h5>
         <Table>
@@ -179,7 +180,9 @@ export default function CourseDetail() {
                     <span className="font-semibold">
                       {review.term} with {review.professor}:
                     </span>{" "}
-                    {review.review}
+                    <span className="text-[#333333] dark:text-muted-foreground">
+                      {review.review}
+                    </span>
                   </p>
                 </TableCell>
               </TableRow>
@@ -188,40 +191,8 @@ export default function CourseDetail() {
         </Table>
 
         {/* Review form */}
-        <h5 className="font-semibold mt-10 text-xl">Leave a review</h5>
-        <form className="mt-4">
-          <div className="flex flex-col space-y-4">
-            <label htmlFor="professor" className="font-semibold">
-              Professor
-            </label>
-            <input
-              type="text"
-              id="professor"
-              name="professor"
-              className="input"
-            />
-            <label htmlFor="term" className="font-semibold">
-              Term
-            </label>
-            <input type="text" id="term" name="term" className="input" />
-            <label htmlFor="review" className="font-semibold">
-              Review
-            </label>
-            <textarea
-              id="review"
-              name="review"
-              className="input"
-              rows={4}
-            ></textarea>
-            <button
-              type="submit"
-              className="btn btn-primary"
-              onClick={(e) => e.preventDefault()}
-            >
-              Submit
-            </button>
-          </div>
-        </form>
+        <h5 className="font-semibold mt-10 mb-2 text-xl">Leave a review</h5>
+        <ReviewForm />
       </CardContent>
       <CardFooter>
         <div className="text-xs text-muted-foreground">

@@ -57,6 +57,7 @@ export const ReviewFormSchema = z.object({
     "D+",
     "D",
     "D-",
+    "E",
     "F",
   ]),
   professorEmail: z
@@ -68,11 +69,9 @@ export const ReviewFormSchema = z.object({
   review: z
     .string()
     .min(100, { message: "Review must be at least 100 characters long" }),
-  term: z
-    .string()
-    .regex(/^\d{2}[FWSX]$/, {
-      message: "Term must be in the format 24F, 24W, 24S or 24X",
-    }),
+  term: z.string().regex(/^\d{2}[FWSX]$/, {
+    message: "Term must be in the format 24F, 24W, 24S or 24X",
+  }),
 });
 
 export type Course = {
