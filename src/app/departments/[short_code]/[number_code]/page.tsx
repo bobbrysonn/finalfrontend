@@ -1,7 +1,8 @@
 import BreadcrumbGuide from "@/components/breadcrumbguide";
-import CourseDetail from "@/components/coursedetail";
+import CourseDetail from "@/components/coursedetail/coursedetail";
+import { createReview } from "@/actions/reviews";
 
-export default function Page({
+export default async function Page({
   params,
   searchParams,
 }: {
@@ -16,7 +17,7 @@ export default function Page({
       <div className="mb-4">
         <BreadcrumbGuide />
       </div>
-      <CourseDetail />
+      <CourseDetail reviewAction={createReview} courseName={`${params.short_code} ${params.number_code}`} />
     </main>
   );
 }

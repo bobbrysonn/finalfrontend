@@ -1,32 +1,37 @@
 import NextAuth from "next-auth"
 import Credentials from "next-auth/providers/credentials"
-import { ZodError } from "zod"
-import { LoginFormSchema } from "./definitions"
+import {jwtDecode} from "jwt-decode";
+import {ZodError} from "zod"
+import {LoginFormSchema} from "./definitions"
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
+export const {handlers, signIn, signOut, auth} = NextAuth({
   providers: [
     Credentials({
-      credentials: { email: {}, password: {} },
+      credentials: {email: {}, password: {}},
       authorize: async (credentials) => {
         let user = null
 
         try {
-          const { email, password } = LoginFormSchema.parse(credentials)
+          const {email, password} = LoginFormSchema.parse(credentials)
 
           /* Authenticate user */
           const response = await fetch(`${process.env.API_ROOT}/auth/jwt/create/`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password }),
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({email, password}),
           })
 
           /* Handle response */
           if (response.status === 200) {
             const data = await response.json()
-            const { exp, user_id, username, email } = data.access
-            const refresh_token = data.refresh
+            const {email} = jwtDecode<{
+              exp: string;
+              user_id: number;
+              username: string,
+              email: string;
+            }>(data.access);
 
-            user = { expiry: exp, id: user_id, username, email, refresh_token }
+            user = { email }
           } else {
 
             throw new Error("Invalid credentials")
@@ -38,8 +43,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           }
         }
 
+        console.log(user)
         return user
       }
     }),
   ],
+
+  callbacks: {
+
+  }
 })

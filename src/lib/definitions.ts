@@ -43,7 +43,7 @@ export const RegisterFormSchema = z
   });
 
 export const ReviewFormSchema = z.object({
-  courseRating: z.number().int().min(1).max(10),
+  courseRating: z.coerce.number().int().min(1).max(10),
   layup: z.boolean(),
   medianGrade: z.enum([
     "A",
@@ -65,7 +65,7 @@ export const ReviewFormSchema = z.object({
     .regex(/^[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)*@dartmouth\.edu$/, {
       message: "Professor email must be valid dartmouth address",
     }),
-  professorRating: z.number().int().min(1).max(10),
+  professorRating: z.coerce.number().int().min(1).max(10),
   review: z
     .string()
     .min(100, { message: "Review must be at least 100 characters long" }),
@@ -89,3 +89,28 @@ export type Department = {
   courses: Course[];
   course_count: number;
 };
+
+export type ReviewDataSchema = {
+  content: string;
+  course: string;
+  course_rating: number;
+  term: string;
+  professor: string;
+  professor_rating: number;
+  median:
+    "A" |
+    "A-" |
+    "B+" |
+    "B" |
+    "B-" |
+    "C+" |
+    "C" |
+    "C-" |
+    "D+" |
+    "D" |
+    "D-" |
+    "E" |
+    "F";
+  student: string | null | undefined;
+  layup: boolean;
+}
