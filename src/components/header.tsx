@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { CircleUser, AlignLeft, Search } from "lucide-react";
+import { CircleUser, AlignLeft } from "lucide-react";
 import { auth, signOut } from "@/lib/auth";
 
 import { Button } from "@/components/ui/button";
@@ -12,7 +12,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import { redirect } from "next/navigation";

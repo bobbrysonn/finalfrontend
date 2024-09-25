@@ -1,10 +1,8 @@
 import BreadcrumbGuide from "@/components/breadcrumbguide";
-import DepartmentCourseList from "@/components/departmentcourselist";
 import CourseSearchList from "@/components/coursesearchlist";
 
 export default function Page({
   params,
-  searchParams,
 }: {
   params: { query: string };
   searchParams: { [key: string]: string | string[] | undefined };

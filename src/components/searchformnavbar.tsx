@@ -1,21 +1,9 @@
 "use client"
 
-import { useFormStatus } from "react-dom"
 import { useRouter } from "next/navigation"
 
 import {Input} from "@/components/ui/input";
-import {Button} from "@/components/ui/button";
 import {Search} from "lucide-react";
-
-function Submit() {
-  const { pending } = useFormStatus()
-
-  return (
-    <Button type="submit" variant="outline" disabled={pending}>
-      {pending ? "Searching..." : "Search"}
-    </Button>
-  )
-}
 
 export default function SearchFormNavbar() {
   const router = useRouter()
