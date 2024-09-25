@@ -1,8 +1,15 @@
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import SearchFormBody from "@/components/searchformbody";
 
 export default function HomePage() {
+  async function search(formData: FormData) {
+    "use server";
+
+    const q = formData.get("search")
+  }
+
   return (
     <main className="min-h-[65vh] flex flex-col items-center justify-center p-4">
       <div className="text-center mb-8">
@@ -24,17 +31,7 @@ export default function HomePage() {
       </div>
 
       <div className="w-full max-w-md mb-6">
-        <div className="flex flex-col gap-3 items-center justify-center">
-          <Input
-            type="text"
-            placeholder="Search for Courses..."
-            className=""
-            id="search-body"
-          />
-          <Button type="submit" variant="outline">
-            Search
-          </Button>
-        </div>
+        <SearchFormBody />
       </div>
       {/* <div className="flex space-x-4 mb-8">
         <Button variant="outline">See Best Classes</Button>
