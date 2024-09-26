@@ -14,7 +14,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ModeToggle } from "@/components/ui/mode-toggle";
-import { redirect } from "next/navigation";
 import NavLinks from "@/components/navlinks";
 import SearchFormNavbar from "@/components/searchformnavbar";
 
@@ -82,22 +81,15 @@ export default async function Header() {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
-                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                  <DropdownMenuSeparator></DropdownMenuSeparator>
-                  <DropdownMenuItem>Profile</DropdownMenuItem>
-                  <DropdownMenuItem>Settings</DropdownMenuItem>
-                  <DropdownMenuSeparator></DropdownMenuSeparator>
                   <DropdownMenuItem>
                     <form
                       action={async () => {
                         "use server";
-                        await signOut({ redirect: false });
-
-                        redirect("/auth/login");
+                        await signOut({ redirectTo: "/auth/login" });
                       }}
-                      className="cursor-pointer"
+                      className="w-full cursor-pointer"
                     >
-                      <button type="submit">Sign out</button>
+                      <button type="submit" className="w-full">Sign out</button>
                     </form>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
