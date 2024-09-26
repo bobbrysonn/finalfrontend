@@ -47,8 +47,6 @@ export default function RegisterForm({
   });
 
   async function handleRegister(data: z.infer<typeof RegisterFormSchema>) {
-    console.log("Running in the client");
-
     const res = await register(data);
 
     if (res?.error) {

@@ -4,7 +4,7 @@ import {NextResponse} from "next/server";
 export default auth((req) => {
   if (!req.auth) {
     /* If path is root, auth/login, auth/register, proceed as usual */
-    if (req.nextUrl.pathname === "/" || req.nextUrl.pathname === "/auth/login" || req.nextUrl.pathname === "/auth/register") {
+    if (req.nextUrl.pathname === "/" || req.nextUrl.pathname.startsWith("/auth")) {
       return NextResponse.next()
     } else {
       /* Else redirect to log in */

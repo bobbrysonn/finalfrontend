@@ -31,6 +31,7 @@ export default async function CourseDetail({reviewAction, courseName}: {
   if (reviews.length === 0) {
     canReview = true;
   } else {
+    console.log(reviews)
     reviews.forEach((review : { student : string })=> {
     if (review.student === session!.user!.id!) {
       canReview = false;

@@ -32,7 +32,7 @@ export const RegisterFormSchema = z
       .refine((data) => /[0-9]/.test(data), {
         message: "Password must have at least one number",
       })
-      .refine((data) => /[!@#$%^&*(),.?":{}|<>]/.test(data), {
+      .refine((data) => /[!@#$%^&*(),.?":{}|<>-]/.test(data), {
         message: "Password must have at least one special character",
       }),
     confirmPassword: z.string(),

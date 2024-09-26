@@ -14,7 +14,6 @@ import {
 } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Loader2 } from "lucide-react";
-import ResendActivationEmailForm from "@/components/resendactivationemailform";
 
 export default function EmailActivation() {
   const params = useParams();
@@ -74,7 +73,7 @@ export default function EmailActivation() {
                 Login
               </Button>
             ) : (
-              <ResendActivationEmailForm />
+              <></>
             )}
           </CardFooter>
         )}
