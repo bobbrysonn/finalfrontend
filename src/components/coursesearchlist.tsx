@@ -25,13 +25,20 @@ export default async function CourseSearchList({ query }: { query: string}) {
   );
 
   const courses: [Course] = await data.json();
+  let decodedQuery: string;
+  try {
+    decodedQuery = decodeURIComponent(query)
+  } catch (error) {
+    console.error(error);
+    decodedQuery = query;
+  }
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{query}</CardTitle>
+        <CardTitle>{decodedQuery}</CardTitle>
         <CardDescription>
-          View all courses for the search {query}
+          View all courses for the search {decodedQuery}
         </CardDescription>
       </CardHeader>
       <CardContent>

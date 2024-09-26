@@ -29,6 +29,15 @@ export default function DynamicBreadcrumb() {
           const href = `/${pathSegments.slice(0, index + 1).join("/")}`;
           const isLast = index === pathSegments.length - 1;
 
+          /* The segment can sometimes be an encoded URI so make sure to decode */
+          let decodedSegment: string;
+          try {
+            decodedSegment = decodeURIComponent(segment)
+          } catch (error) {
+            console.error(error);
+            decodedSegment= segment;
+          }
+
           return (
             <BreadcrumbItem key={href}>
               <BreadcrumbSeparator>
@@ -36,11 +45,11 @@ export default function DynamicBreadcrumb() {
               </BreadcrumbSeparator>
               {isLast ? (
                 <span className="font-medium text-foreground capitalize">
-                  {segment}
+                  {decodedSegment}
                 </span>
               ) : (
                 <Link href={href} className="capitalize">
-                  {segment}
+                  {decodedSegment}
                 </Link>
               )}
             </BreadcrumbItem>
