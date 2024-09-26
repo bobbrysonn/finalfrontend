@@ -1,16 +1,19 @@
-import { auth } from "@/lib/auth"
+import {auth} from "@/lib/auth"
 import {NextResponse} from "next/server";
 
 export default auth((req) => {
-
-  /* If path is root, auth/login, auth/register, proceed as usual */
-  if (req.nextUrl.pathname === "/" || req.nextUrl.pathname === "/auth/login" || req.nextUrl.pathname === "/auth/register") {
-    return NextResponse.next()
+  if (!req.auth) {
+    /* If path is root, auth/login, auth/register, proceed as usual */
+    if (req.nextUrl.pathname === "/" || req.nextUrl.pathname === "/auth/login" || req.nextUrl.pathname === "/auth/register") {
+      return NextResponse.next()
+    } else {
+      /* Else redirect to log in */
+      const newUrl = new URL("/auth/login", req.nextUrl.origin)
+      return Response.redirect(newUrl)
+    }
   }
 
-  /* Else redirect to log in */
-  const newUrl = new URL("/auth/login", req.nextUrl.origin)
-  return Response.redirect(newUrl)
+  return NextResponse.next()
 })
 
 export const config = {
