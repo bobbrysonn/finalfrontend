@@ -5,6 +5,14 @@ import {ZodError} from "zod"
 import {LoginFormSchema} from "./definitions"
 
 export const {handlers, signIn, signOut, auth} = NextAuth({
+  callbacks: {
+    authorized: async ({ auth }) => {
+      return !!auth;
+    },
+  },
+  pages: {
+    signIn: "/auth/login"
+  },
   providers: [
     Credentials({
       credentials: {email: {}, password: {}},
@@ -32,24 +40,14 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
             }>(data.access);
 
             user = { email }
-          } else {
-
-            throw new Error("Invalid credentials")
           }
         } catch (error) {
           if (error instanceof ZodError) {
-
             return null
           }
         }
-
-        console.log(user)
         return user
       }
     }),
   ],
-
-  callbacks: {
-
-  }
 })
