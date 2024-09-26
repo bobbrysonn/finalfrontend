@@ -6,13 +6,13 @@ export default function Ratings() {
       <Card className="max-w-56 w-full">
         <CardContent className="flex flex-col gap-2 items-center justify-center p-4">
           <p className="text-4xl font-bold">78</p>
-          <p className="text-sm mb-2">Average Rating</p>
+          <p className="text-sm mb-2 text-[#333333] dark:text-muted-foreground">Average Rating</p>
         </CardContent>
       </Card>
       <Card className="max-w-56 w-full">
         <CardContent className="flex flex-col gap-2 items-center justify-center p-4">
           <p className="text-4xl font-bold">11</p>
-          <p className="text-sm mb-2">called it a layup</p>
+          <p className="text-sm mb-2 text-[#333333] dark:text-muted-foreground">called it a layup</p>
         </CardContent>
       </Card>
     </div>
