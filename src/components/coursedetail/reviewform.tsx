@@ -88,7 +88,7 @@ export default function ReviewForm(x: {
         <h5 className="font-semibold mt-10 mb-2 text-xl">Leave a review</h5>
         <Card className="rounded-lg md:border">
           <CardHeader>
-            <CardDescription className={"text-white"}>
+            <CardDescription className={"text-[#333333] dark:text-muted-foreground"}>
               Thank you for taking the time to review this course. Your feedback is
               appreciated.
             </CardDescription>
