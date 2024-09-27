@@ -17,7 +17,10 @@ export default async function Page({
       <div className="mb-4">
         <BreadcrumbGuide />
       </div>
-      <CourseDetail reviewAction={createReview} courseName={`${params.short_code} ${params.number_code}`} />
+      <CourseDetail
+        reviewAction={createReview}
+        courseName={`${params.short_code} ${params.number_code} ${searchParams.name}`}
+      />
     </main>
   );
 }
