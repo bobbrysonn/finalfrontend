@@ -20,8 +20,13 @@ export default async function CourseDetail({reviewAction, courseName}: {
 }) {
   // Fetch reviews for this course
   const reviews = await fetch(`${process.env.API_ROOT}/api/reviews/`).then(res => res.json());
-
+  const course = await fetch(`${process.env.API_ROOT}/api/findcourse/${courseName}/`).then(res => res.json());
   const professors = [{name: "No professors yet", reviewCount: 0}];
+
+  let description;
+  if (course) {
+    description = course[0].description;
+  }
 
   return (
     <Card>
@@ -31,7 +36,7 @@ export default async function CourseDetail({reviewAction, courseName}: {
       </CardHeader>
       <CardContent>
         {/* Course description */}
-        <Description description={"Course description goes here"}/>
+        <Description description={description ? description : "Some"}/>
 
         {/* Rating stuff */}
         <Ratings/>
