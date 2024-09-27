@@ -1,17 +1,17 @@
 "use client";
 
-import {zodResolver} from "@hookform/resolvers/zod";
-import {useForm} from "react-hook-form";
-import {z} from "zod";
-import {ReviewFormSchema} from "@/lib/definitions";
-import {Button} from "@/components/ui/button";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { ReviewFormSchema } from "@/lib/definitions";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
 } from "@/components/ui/card";
-import {Checkbox} from "@/components/ui/checkbox";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormDescription,
@@ -20,7 +20,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import {Input} from "@/components/ui/input";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -30,19 +30,21 @@ import {
   SelectValue,
   SelectLabel,
 } from "@/components/ui/select";
-import {Textarea} from "@/components/ui/textarea";
-import {useToast} from "@/hooks/use-toast";
-import {ReviewDataSchema} from "@/lib/definitions";
-import {useRouter} from "next/navigation";
+import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
+import { ReviewDataSchema } from "@/lib/definitions";
+import { useRouter } from "next/navigation";
 
 export default function ReviewForm(x: {
-  review: (data: ReviewDataSchema) => Promise<{ error?: boolean; message?: string }>;
+  review: (
+    data: ReviewDataSchema
+  ) => Promise<{ error?: boolean; message?: string }>;
   courseName: string;
-  email: string,
-  canReview: boolean
+  email: string;
+  canReview: boolean;
 }) {
-  const {toast} = useToast();
-  const router = useRouter()
+  const { toast } = useToast();
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof ReviewFormSchema>>({
     defaultValues: {
@@ -58,7 +60,7 @@ export default function ReviewForm(x: {
   });
 
   async function handleSubmit(data: z.infer<typeof ReviewFormSchema>) {
-    toast({title: "Review", description: `Posting your review...`});
+    toast({ title: "Review", description: `Posting your review...` });
 
     const server_data = {
       content: data.review,
@@ -69,17 +71,19 @@ export default function ReviewForm(x: {
       professor_rating: data.professorRating,
       median: data.medianGrade,
       student: x.email,
-      layup: data.layup
-    }
+      layup: data.layup,
+    };
 
     const res = await x.review(server_data);
 
+    console.log(res);
+
     if (res?.error) {
-      form.setError("review", {message: res.message});
+      form.setError("review", { message: res.message });
       return;
     }
 
-    router.refresh()
+    router.refresh();
   }
 
   if (!x.canReview) {
@@ -88,17 +92,17 @@ export default function ReviewForm(x: {
         <h5 className="font-semibold mt-10 mb-2 text-xl">Leave a review</h5>
         <Card className="rounded-lg md:border">
           <CardHeader>
-            <CardDescription className={"text-[#333333] dark:text-muted-foreground"}>
-              Thank you for taking the time to review this course. Your feedback is
-              appreciated.
+            <CardDescription
+              className={"text-[#333333] dark:text-muted-foreground"}
+            >
+              Thank you for taking the time to review this course. Your feedback
+              is appreciated.
             </CardDescription>
           </CardHeader>
-          <CardContent>
-          </CardContent>
+          <CardContent></CardContent>
         </Card>
       </div>
-
-    )
+    );
   }
 
   return (
@@ -107,8 +111,8 @@ export default function ReviewForm(x: {
       <Card className="rounded-lg md:border">
         <CardHeader>
           <CardDescription>
-            Thank you for taking the time to review this course. Your feedback is
-            appreciated.
+            Thank you for taking the time to review this course. Your feedback
+            is appreciated.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -118,7 +122,7 @@ export default function ReviewForm(x: {
               <FormField
                 control={form.control}
                 name="professorEmail"
-                render={({field}) => (
+                render={({ field }) => (
                   <FormItem>
                     <FormLabel htmlFor="professorEmailGiven">
                       Professor Email
@@ -130,7 +134,7 @@ export default function ReviewForm(x: {
                       placeholder="peter.lanfer@dartmouth.edu"
                     />
                     <FormDescription>Enter professor email</FormDescription>
-                    <FormMessage/>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -138,7 +142,7 @@ export default function ReviewForm(x: {
               <FormField
                 control={form.control}
                 name="term"
-                render={({field}) => (
+                render={({ field }) => (
                   <FormItem>
                     <FormLabel htmlFor="termGiven">Term</FormLabel>
                     <Input
@@ -148,7 +152,7 @@ export default function ReviewForm(x: {
                       placeholder="24W"
                     />
                     <FormDescription>Enter school term</FormDescription>
-                    <FormMessage/>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -156,7 +160,7 @@ export default function ReviewForm(x: {
               <FormField
                 control={form.control}
                 name="medianGrade"
-                render={({field}) => (
+                render={({ field }) => (
                   <FormItem key={field.value}>
                     <FormLabel htmlFor="professorEmailGiven">
                       Median Grade
@@ -166,7 +170,7 @@ export default function ReviewForm(x: {
                       defaultValue={field.value}
                     >
                       <SelectTrigger>
-                        <SelectValue placeholder="Select a grade"/>
+                        <SelectValue placeholder="Select a grade" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectGroup {...field}>
@@ -188,7 +192,7 @@ export default function ReviewForm(x: {
                       </SelectContent>
                     </Select>
                     <FormDescription>Select class Median Grade</FormDescription>
-                    <FormMessage/>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -197,7 +201,7 @@ export default function ReviewForm(x: {
                 <FormField
                   control={form.control}
                   name="professorRating"
-                  render={({field}) => (
+                  render={({ field }) => (
                     <FormItem>
                       <FormLabel htmlFor="professorRatingGiven">
                         Professor Rating
@@ -211,14 +215,14 @@ export default function ReviewForm(x: {
                       <FormDescription>
                         Rate your professor out of 10
                       </FormDescription>
-                      <FormMessage/>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
                 <FormField
                   control={form.control}
                   name="courseRating"
-                  render={({field}) => (
+                  render={({ field }) => (
                     <FormItem>
                       <FormLabel htmlFor="courseRatingGiven">
                         Course Rating
@@ -229,8 +233,10 @@ export default function ReviewForm(x: {
                         id="courseRatingGiven"
                         placeholder="7"
                       />
-                      <FormDescription>Rate the class out of 10</FormDescription>
-                      <FormMessage/>
+                      <FormDescription>
+                        Rate the class out of 10
+                      </FormDescription>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -239,7 +245,7 @@ export default function ReviewForm(x: {
               <FormField
                 control={form.control}
                 name="review"
-                render={({field}) => (
+                render={({ field }) => (
                   <FormItem>
                     <FormLabel htmlFor="reviewGiven">Review</FormLabel>
                     <Textarea
@@ -251,7 +257,7 @@ export default function ReviewForm(x: {
                     <FormDescription>
                       Enter your opinion about the class
                     </FormDescription>
-                    <FormMessage/>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -259,7 +265,7 @@ export default function ReviewForm(x: {
               <FormField
                 control={form.control}
                 name="layup"
-                render={({field}) => (
+                render={({ field }) => (
                   <FormItem>
                     <FormLabel htmlFor="layupGiven">
                       Was this class a layup?
@@ -271,7 +277,7 @@ export default function ReviewForm(x: {
                       />
                     </div>
                     <FormDescription>Check to select yes</FormDescription>
-                    <FormMessage/>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -286,6 +292,5 @@ export default function ReviewForm(x: {
         </CardContent>
       </Card>
     </div>
-
   );
 }
