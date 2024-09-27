@@ -26,7 +26,7 @@ export default async function DepartmentCourseList({
   departmentCode: string;
 }) {
   const data = await fetch(
-    `${process.env.API_ROOT}/api/department/${departmentCode}/`,
+    `${process.env.API_ROOT}/api/department/${departmentCode}/`
   );
   const courses: [Course] = await data.json();
 
@@ -56,7 +56,9 @@ export default async function DepartmentCourseList({
                 <TableRow key={course.id}>
                   <TableCell className="font-medium">
                     <Link
-                      href={`/departments/${code}/${number}?name=${rest.join(" ")}`}
+                      href={`/departments/${code}/${number}?name=${rest.join(
+                        " "
+                      )}`}
                       className="hover:underline"
                     >
                       {`${code} ${number}`}
@@ -64,7 +66,9 @@ export default async function DepartmentCourseList({
                   </TableCell>
                   <TableCell>
                     <Link
-                      href={`/departments/${code}/${number}?name=${rest.join(" ")}`}
+                      href={`/departments/${code}/${number}?name=${rest.join(
+                        " "
+                      )}`}
                       className="hover:underline"
                     >
                       {rest.join(" ")}
