@@ -10,7 +10,6 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import {Checkbox} from "@/components/ui/checkbox";
 import {
@@ -33,15 +32,17 @@ import {
 } from "@/components/ui/select";
 import {Textarea} from "@/components/ui/textarea";
 import {useToast} from "@/hooks/use-toast";
-import { useSession } from "next-auth/react"
-import { ReviewDataSchema } from "@/lib/definitions";
+import {ReviewDataSchema} from "@/lib/definitions";
+import {useRouter} from "next/navigation";
 
 export default function ReviewForm(x: {
   review: (data: ReviewDataSchema) => Promise<{ error?: boolean; message?: string }>;
   courseName: string;
+  email: string,
+  canReview: boolean
 }) {
   const {toast} = useToast();
-  const { data: session } = useSession()
+  const router = useRouter()
 
   const form = useForm<z.infer<typeof ReviewFormSchema>>({
     defaultValues: {
@@ -67,7 +68,7 @@ export default function ReviewForm(x: {
       professor: data.professorEmail,
       professor_rating: data.professorRating,
       median: data.medianGrade,
-      student: session!.user!.email,
+      student: x.email,
       layup: data.layup
     }
 
@@ -75,18 +76,39 @@ export default function ReviewForm(x: {
 
     if (res?.error) {
       form.setError("review", {message: res.message});
+      return;
     }
+
+    router.refresh()
+  }
+
+  if (!x.canReview) {
+    return (
+      <div>
+        <h5 className="font-semibold mt-10 mb-2 text-xl">Leave a review</h5>
+        <Card className="rounded-lg md:border">
+          <CardHeader>
+            <CardDescription className={"text-[#333333] dark:text-muted-foreground"}>
+              Thank you for taking the time to review this course. Your feedback is
+              appreciated.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+          </CardContent>
+        </Card>
+      </div>
+
+    )
   }
 
   return (
     <div>
       <h5 className="font-semibold mt-10 mb-2 text-xl">Leave a review</h5>
-      <Card className="max-w-2xl rounded-lg md:border">
+      <Card className="rounded-lg md:border">
         <CardHeader>
-          <CardTitle className="text-3xl">Review</CardTitle>
           <CardDescription>
-            Thank you for taking the time to review your course. Your feedback is
-            appreciated. User id: {session?.user?.email}
+            Thank you for taking the time to review this course. Your feedback is
+            appreciated.
           </CardDescription>
         </CardHeader>
         <CardContent>

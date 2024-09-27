@@ -4,10 +4,31 @@ import {jwtDecode} from "jwt-decode";
 import {ZodError} from "zod"
 import {LoginFormSchema} from "./definitions"
 
+/* eslint-disable */
 export const {handlers, signIn, signOut, auth} = NextAuth({
+  callbacks: {
+    authorized: async ({ auth }) => {
+      return !!auth;
+    },
+    jwt({ token, user }) {
+      if (user) { // User is available during sign-in
+        token.id = user.id
+      }
+      return token
+    },
+    session({ session, token }) {
+      // @ts-ignore
+      session.user.id = token.id
+      return session
+    },
+  },
+  pages: {
+    signIn: "/auth/login"
+  },
   providers: [
     Credentials({
       credentials: {email: {}, password: {}},
+      // @ts-ignore
       authorize: async (credentials) => {
         let user = null
 
@@ -24,32 +45,23 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
           /* Handle response */
           if (response.status === 200) {
             const data = await response.json()
-            const {email} = jwtDecode<{
+            const {email, user_id} = jwtDecode<{
               exp: string;
               user_id: number;
               username: string,
               email: string;
             }>(data.access);
 
-            user = { email }
-          } else {
-
-            throw new Error("Invalid credentials")
+            user = { id: user_id, email }
           }
         } catch (error) {
           if (error instanceof ZodError) {
-
             return null
           }
         }
-
-        console.log(user)
         return user
       }
     }),
   ],
-
-  callbacks: {
-
-  }
 })
+/* eslint-enable */

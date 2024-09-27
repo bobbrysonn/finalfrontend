@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { CircleUser, AlignLeft, Search } from "lucide-react";
+import { CircleUser, AlignLeft } from "lucide-react";
 import { auth, signOut } from "@/lib/auth";
 
 import { Button } from "@/components/ui/button";
@@ -8,15 +8,12 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ModeToggle } from "@/components/ui/mode-toggle";
-import { redirect } from "next/navigation";
 import NavLinks from "@/components/navlinks";
+import SearchFormNavbar from "@/components/searchformnavbar";
 
 export default async function Header() {
   const session = await auth();
@@ -24,7 +21,7 @@ export default async function Header() {
 
   return (
     <header className="flex h-16 items-center justify-center gap-4 px-4 md:px-6 rounded-sm">
-      <div className="flex border-b items-center gap-4 max-w-screen-xl py-2 md:py-3 w-full">
+      <div className="flex border-b items-center max-w-[1816px] gap-4 py-2 md:py-3 w-full">
         <NavLinks />
         <Sheet>
           <SheetTrigger asChild>
@@ -69,17 +66,7 @@ export default async function Header() {
         <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
           {user ? (
             <>
-              <form className="ml-auto flex-1 sm:flex-initial">
-                <div className="relative">
-                  <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    type="search"
-                    name="search"
-                    placeholder="Search courses..."
-                    className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
-                  />
-                </div>
-              </form>
+              <SearchFormNavbar />
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button
@@ -92,22 +79,15 @@ export default async function Header() {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
-                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                  <DropdownMenuSeparator></DropdownMenuSeparator>
-                  <DropdownMenuItem>Profile</DropdownMenuItem>
-                  <DropdownMenuItem>Settings</DropdownMenuItem>
-                  <DropdownMenuSeparator></DropdownMenuSeparator>
                   <DropdownMenuItem>
                     <form
                       action={async () => {
                         "use server";
-                        await signOut({ redirect: false });
-
-                        redirect("/auth/login");
+                        await signOut({ redirectTo: "/auth/login" });
                       }}
-                      className="cursor-pointer"
+                      className="w-full cursor-pointer"
                     >
-                      <button type="submit">Sign out</button>
+                      <button type="submit" className="w-full">Sign out</button>
                     </form>
                   </DropdownMenuItem>
                 </DropdownMenuContent>

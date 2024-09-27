@@ -28,7 +28,7 @@ export default function Reviews({reviews}: {
           </TableBody>
         </Table>
       ) : (
-        <p>No reviews yet</p>
+        <p className="text-sm text-[#333333] dark:text-muted-foreground">No reviews yet</p>
       )}
     </div>
   )
