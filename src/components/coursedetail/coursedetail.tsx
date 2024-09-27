@@ -35,16 +35,27 @@ export default async function CourseDetail({
   // Fetch user email
   const session = await auth();
 
-  /* Check if user can review */
+  /* Check if user can review, also assign layup and ratings */
   let canReview = false;
+  let averageRating = 0;
+  let calledItLayup = 0;
   if (reviews.length === 0) {
     canReview = true;
   } else {
-    reviews.forEach((review: { student: string }) => {
-      if (review.student === session!.user!.id!) {
-        canReview = false;
+    reviews.forEach(
+      (review: { student: string; layup: boolean; course_rating: number }) => {
+        if (review.student === session!.user!.id!) {
+          canReview = false;
+        }
+
+        averageRating += review.course_rating;
+        if (review.layup) {
+          calledItLayup++;
+        }
       }
-    });
+    );
+
+    averageRating = (averageRating / reviews.length) * 10;
   }
 
   const professors = [{ name: "No professors yet", reviewCount: 0 }];
@@ -65,7 +76,7 @@ export default async function CourseDetail({
         <Description description={description ? description : "Some"} />
 
         {/* Rating stuff */}
-        <Ratings />
+        <Ratings averageRating={averageRating} calledItLayup={calledItLayup} />
 
         {/* Professor list */}
         <Professors professors={professors} />
