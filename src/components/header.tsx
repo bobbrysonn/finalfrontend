@@ -10,7 +10,13 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import NavLinks from "@/components/navlinks";
 import SearchFormNavbar from "@/components/searchformnavbar";
@@ -24,6 +30,10 @@ export default async function Header() {
       <div className="flex border-b items-center max-w-[1816px] gap-4 py-2 md:py-3 w-full">
         <NavLinks />
         <Sheet>
+          <SheetTitle className="sr-only">Sheet Navigation</SheetTitle>
+          <SheetDescription className="sr-only">
+            Navigation for layup list
+          </SheetDescription>
           <SheetTrigger asChild>
             <Button
               variant="outline"
@@ -87,7 +97,9 @@ export default async function Header() {
                       }}
                       className="w-full cursor-pointer"
                     >
-                      <button type="submit" className="w-full">Sign out</button>
+                      <button type="submit" className="w-full">
+                        Sign out
+                      </button>
                     </form>
                   </DropdownMenuItem>
                 </DropdownMenuContent>

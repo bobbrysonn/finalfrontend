@@ -13,11 +13,11 @@ export default function HomePage() {
             height={256}
           />
         </div>
-        <h1 className="text-4xl font-medium mb-2">Based Reviews</h1>
-        <h2 className="text-xl mb-2">
+        <h1 className="text-2xl lg:text-4xl font-medium mb-2">Based Reviews</h1>
+        <h2 className="text-sm lg:text-xl mb-2">
           Dartmouth Course Reviews, Rankings, and Recommendations
         </h2>
-        <p className="text-muted-foreground text-sm">
+        <p className="text-muted-foreground text-xs lg:text-base">
           32,733 reviews and counting
         </p>
       </div>
