@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/sheet";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import NavLinks from "@/components/navlinks";
-import SearchFormNavbar from "@/components/searchformnavbar";
+import SearchFormNavbar from "@/components/forms/searchformnavbar";
 
 export default async function Header() {
   const session = await auth();

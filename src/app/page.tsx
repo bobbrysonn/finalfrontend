@@ -1,5 +1,5 @@
 import Image from "next/image";
-import SearchFormBody from "@/components/searchformbody";
+import SearchFormBody from "@/components/forms/searchformbody";
 
 export default function HomePage() {
   return (
