@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/form";
 
 import { PasswordResetConfirmationSchema } from "@/lib/definitions";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
@@ -41,7 +41,7 @@ export default function PasswordResetConfirmationForm({
   id,
   token,
 }: Props) {
-  const [message, setMessage] = useState<string | null>(null);
+  const [message, setMessage] = useState<string | null | undefined>(null);
 
   const form = useForm<z.infer<typeof PasswordResetConfirmationSchema>>({
     defaultValues: {
