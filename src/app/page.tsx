@@ -3,14 +3,14 @@ import SearchFormBody from "@/components/forms/searchformbody";
 
 export default function HomePage() {
   return (
-    <main className="min-h-[65vh] flex flex-col items-center justify-center p-4">
+    <main className="min-h-[60vh] md:min-h-[65vh] flex flex-col items-center justify-center p-4">
       <div className="text-center mb-8">
         <div className="w-40 md:w-52 mx-auto mb-4 flex items-center justify-center">
           <Image
             src="/images/brand-body.png"
             alt="Based Reviews"
-            width={256}
-            height={256}
+            width={128}
+            height={128}
           />
         </div>
         <h1 className="text-2xl lg:text-4xl font-medium mb-2">Based Reviews</h1>
