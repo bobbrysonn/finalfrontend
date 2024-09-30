@@ -23,7 +23,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useToast } from "@/hooks/use-toast";
+import { Loader } from "lucide-react";
 
 export default function LoginForm({
   login,
@@ -32,7 +32,6 @@ export default function LoginForm({
     data: z.infer<typeof LoginFormSchema>
   ) => Promise<{ success?: boolean; error?: boolean; message?: string }>;
 }) {
-  const { toast } = useToast();
   const form = useForm<z.infer<typeof LoginFormSchema>>({
     defaultValues: {
       email: "",
@@ -41,8 +40,12 @@ export default function LoginForm({
     resolver: zodResolver(LoginFormSchema),
   });
 
+  /* Get form state */
+  const {
+    formState: { isSubmitting, isSubmitSuccessful },
+  } = form;
+
   async function handleLogin(data: z.infer<typeof LoginFormSchema>) {
-    toast({ title: "Authentication", description: "Logging you in..." });
     const res = await login(data);
 
     if (res?.error) {
@@ -109,8 +112,13 @@ export default function LoginForm({
               )}
             />
             <FormItem className="mt-4">
-              <Button type="submit" className="w-full ">
-                Login
+              <Button
+                type="submit"
+                className="w-full flex gap-2"
+                disabled={isSubmitting || isSubmitSuccessful}
+              >
+                {isSubmitting ? "" : "Login"}
+                {isSubmitting && <Loader className="w-4 h-4 animate-spin" />}
               </Button>
             </FormItem>
           </form>

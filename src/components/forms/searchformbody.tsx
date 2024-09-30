@@ -6,12 +6,15 @@ import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
+import { Loader } from "lucide-react";
+
 function Submit() {
   const { pending } = useFormStatus();
 
   return (
-    <Button type="submit" variant="outline" size="sm" disabled={pending}>
-      {pending ? "Searching..." : "Search"}
+    <Button type="submit" variant="outline" disabled={pending}>
+      {pending ? "" : "Search"}
+      {pending && <Loader className="w-4 h-4 animate-spin" />}
     </Button>
   );
 }
@@ -19,7 +22,7 @@ function Submit() {
 export default function SearchFormBody() {
   const router = useRouter();
 
-  const search = (formData: FormData) => {
+  const search = async (formData: FormData) => {
     router.push(`/courses/${formData.get("search")}/`);
   };
 

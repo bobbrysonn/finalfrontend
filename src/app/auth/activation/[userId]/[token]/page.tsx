@@ -13,7 +13,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Loader2 } from "lucide-react";
+import { Loader } from "lucide-react";
 
 export default function EmailActivation() {
   const params = useParams();
@@ -45,7 +45,7 @@ export default function EmailActivation() {
 
   return (
     <div className="flex items-center justify-center min-h-[85vh]">
-      <Card className="w-[350px]">
+      <Card className="border w-[350px]">
         <CardHeader>
           <CardTitle>Email Activation</CardTitle>
           <CardDescription>Confirming your email address</CardDescription>
@@ -53,7 +53,7 @@ export default function EmailActivation() {
         <CardContent>
           {isLoading ? (
             <div className="flex justify-center">
-              <Loader2 className="h-8 w-8 animate-spin" />
+              <Loader className="h-5 w-5 animate-spin" />
             </div>
           ) : activationResult ? (
             <Alert
