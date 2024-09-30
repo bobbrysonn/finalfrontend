@@ -19,15 +19,13 @@ import {
 
 import type { Course } from "@/lib/definitions";
 
-export default async function CourseSearchList({ query }: { query: string}) {
-  const data = await fetch(
-    `${process.env.API_ROOT}/api/findcourse/${query}/`,
-  );
+export default async function CourseSearchList({ query }: { query: string }) {
+  const data = await fetch(`${process.env.API_ROOT}/api/findcourse/${query}/`);
 
   const courses: [Course] = await data.json();
   let decodedQuery: string;
   try {
-    decodedQuery = decodeURIComponent(query)
+    decodedQuery = decodeURIComponent(query);
   } catch (error) {
     console.error(error);
     decodedQuery = query;
@@ -35,13 +33,13 @@ export default async function CourseSearchList({ query }: { query: string}) {
 
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className="px-2 md:px-6 py-6">
         <CardTitle>{decodedQuery}</CardTitle>
         <CardDescription>
           View all courses for the search {decodedQuery}
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="px-0 md:px-6 md:py-6">
         <Table>
           <TableHeader>
             <TableRow>
@@ -59,7 +57,9 @@ export default async function CourseSearchList({ query }: { query: string}) {
                 <TableRow key={course.id}>
                   <TableCell className="font-medium">
                     <Link
-                      href={`/departments/${code}/${number}?name=${rest.join(" ")}`}
+                      href={`/departments/${code}/${number}?name=${rest.join(
+                        " "
+                      )}`}
                       className="hover:underline"
                     >
                       {`${code} ${number}`}
@@ -67,7 +67,9 @@ export default async function CourseSearchList({ query }: { query: string}) {
                   </TableCell>
                   <TableCell>
                     <Link
-                      href={`/departments/${code}/${number}?name=${rest.join(" ")}`}
+                      href={`/departments/${code}/${number}?name=${rest.join(
+                        " "
+                      )}`}
                       className="hover:underline"
                     >
                       {rest.join(" ")}
