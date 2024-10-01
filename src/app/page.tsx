@@ -4,7 +4,7 @@ import SearchFormBody from "@/components/forms/searchformbody";
 export default function HomePage() {
   return (
     <main className="min-h-[60vh] md:min-h-[65vh] flex flex-col items-center justify-center p-4">
-      <div className="text-center mb-8">
+      <div className="text-center mb-4">
         <div className="w-40 md:w-52 mx-auto mb-4 flex items-center justify-center">
           <Image
             src="/images/brand-body.png"
@@ -14,12 +14,9 @@ export default function HomePage() {
           />
         </div>
         <h1 className="text-2xl lg:text-4xl font-medium mb-2">Based Reviews</h1>
-        <h2 className="text-sm lg:text-xl mb-2">
+        <h2 className="text-sm lg:text-xl">
           Dartmouth Course Reviews, Rankings, and Recommendations
         </h2>
-        <p className="text-muted-foreground text-xs lg:text-base">
-          32,733 reviews and counting
-        </p>
       </div>
 
       <div className="w-full max-w-md mb-6">
