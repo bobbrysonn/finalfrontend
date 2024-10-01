@@ -1,9 +1,14 @@
 import Image from "next/image";
 import SearchFormBody from "@/components/forms/searchformbody";
+import { Spotlight } from "@/components/ui/spotlight";
 
 export default function HomePage() {
   return (
     <main className="min-h-[60vh] md:min-h-[65vh] flex flex-col items-center justify-center p-4">
+      <Spotlight
+        className="-top-20 left-6 md:left-9 md:-top-20 lg:-top-20 lg:left-[18rem] 2xl:left-[20rem] 3xl:left-[48rem] 4xl:left-[60rem] 4xl:-top-[12rem]"
+        fill="white"
+      />
       <div className="text-center mb-8">
         <div className="w-40 md:w-52 mx-auto mb-4 flex items-center justify-center">
           <Image
