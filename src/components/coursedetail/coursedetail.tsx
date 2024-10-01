@@ -73,7 +73,13 @@ export default async function CourseDetail({
       </CardHeader>
       <CardContent>
         {/* Course description */}
-        <Description description={description ? description : "Some"} />
+        <Description
+          description={
+            description
+              ? description
+              : "No description provided from ORC website"
+          }
+        />
 
         {/* Rating stuff */}
         <Ratings averageRating={averageRating} calledItLayup={calledItLayup} />
