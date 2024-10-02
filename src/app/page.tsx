@@ -7,6 +7,7 @@ export default function HomePage() {
       <div className="text-center mb-4">
         <div className="w-40 md:w-52 mx-auto mb-4 flex items-center justify-center">
           <Image
+            priority
             src="/images/brand-body.png"
             alt="Based Reviews"
             width={128}
