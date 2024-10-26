@@ -20,7 +20,7 @@ import {
 import type { Course } from "@/lib/definitions";
 
 export default async function CourseSearchList({ query }: { query: string }) {
-  const data = await fetch(`${process.env.API_ROOT}/api/findcourse/${query}/`);
+  const data = await fetch(`${process.env.API_ROOT}/api/courses?title=${query}`);
 
   const courses: [Course] = await data.json();
   let decodedQuery: string;
