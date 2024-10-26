@@ -35,16 +35,27 @@ import { useToast } from "@/hooks/use-toast";
 import { ReviewDataSchema } from "@/lib/definitions";
 import { useRouter } from "next/navigation";
 
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+
 export default function ReviewForm(x: {
   review: (
-    data: ReviewDataSchema
+    data: ReviewDataSchema,
   ) => Promise<{ error?: boolean; message?: string }>;
   courseName: string;
   email: string;
   canReview: boolean;
 }) {
   const { toast } = useToast();
-  const router = useRouter();
+  const router = useRouter()
 
   const form = useForm<z.infer<typeof ReviewFormSchema>>({
     defaultValues: {
@@ -107,190 +118,216 @@ export default function ReviewForm(x: {
 
   return (
     <div>
-      <h5 className="font-semibold mt-10 mb-2 text-xl">Leave a review</h5>
-      <Card className="rounded-lg md:border">
-        <CardHeader>
-          <CardDescription>
-            Thank you for taking the time to review this course. Your feedback
-            is appreciated.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit((data) => handleSubmit(data))}>
-              {/* Professor email */}
-              <FormField
-                control={form.control}
-                name="professorEmail"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel htmlFor="professorEmailGiven">
-                      Professor Email
-                    </FormLabel>
-                    <Input
-                      {...field}
-                      type="email"
-                      id="professorEmailGiven"
-                      placeholder="peter.lanfer@dartmouth.edu"
+      <Dialog>
+        <DialogTrigger asChild>
+          <div className="flex justify-center mt-8">
+            <Button className="mx-auto w-[15rem]">Leave a review</Button>
+          </div>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Submit Review</DialogTitle>
+            <DialogDescription>
+              Thank you for taking the time to review this course. Your feedback
+              is appreciated.
+            </DialogDescription>
+          </DialogHeader>
+
+          {/* The review form */}
+          <div className="flex items-center space-x-2">
+            <Card className="rounded-lg md:border w-full">
+              <CardContent className="mt-6">
+                <Form {...form}>
+                  <form
+                    onSubmit={form.handleSubmit((data) => handleSubmit(data))}
+                  >
+                    {/* Professor email */}
+                    <FormField
+                      control={form.control}
+                      name="professorEmail"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel htmlFor="professorEmailGiven">
+                            Professor Email
+                          </FormLabel>
+                          <Input
+                            {...field}
+                            type="email"
+                            id="professorEmailGiven"
+                            placeholder="peter.lanfer@dartmouth.edu"
+                          />
+                          <FormDescription>
+                            Enter professor email
+                          </FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
                     />
-                    <FormDescription>Enter professor email</FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              {/* Term */}
-              <FormField
-                control={form.control}
-                name="term"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel htmlFor="termGiven">Term</FormLabel>
-                    <Input
-                      {...field}
-                      type="text"
-                      id="termGiven"
-                      placeholder="24W"
+                    {/* Term */}
+                    <FormField
+                      control={form.control}
+                      name="term"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel htmlFor="termGiven">Term</FormLabel>
+                          <Input
+                            {...field}
+                            type="text"
+                            id="termGiven"
+                            placeholder="24W"
+                          />
+                          <FormDescription>Enter school term</FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
                     />
-                    <FormDescription>Enter school term</FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              {/* Median */}
-              <FormField
-                control={form.control}
-                name="medianGrade"
-                render={({ field }) => (
-                  <FormItem key={field.value}>
-                    <FormLabel htmlFor="professorEmailGiven">
-                      Median Grade
-                    </FormLabel>
-                    <Select
-                      onValueChange={(value) => field.onChange(value)}
-                      defaultValue={field.value}
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select a grade" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup {...field}>
-                          <SelectLabel>Letter Grade</SelectLabel>
-                          <SelectItem value="A">A</SelectItem>
-                          <SelectItem value="A-">A-</SelectItem>
-                          <SelectItem value="B+">B+</SelectItem>
-                          <SelectItem value="B">B</SelectItem>
-                          <SelectItem value="B-">B-</SelectItem>
-                          <SelectItem value="C+">C+</SelectItem>
-                          <SelectItem value="C">C</SelectItem>
-                          <SelectItem value="C-">C-</SelectItem>
-                          <SelectItem value="D+">D+</SelectItem>
-                          <SelectItem value="D">D</SelectItem>
-                          <SelectItem value="D-">D-</SelectItem>
-                          <SelectItem value="E">E</SelectItem>
-                          <SelectItem value="F">F</SelectItem>
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                    <FormDescription>Select class Median Grade</FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              {/* Ratings */}
-              <div className="flex gap-2 [&>div]:flex-1">
-                <FormField
-                  control={form.control}
-                  name="professorRating"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel htmlFor="professorRatingGiven">
-                        Professor Rating
-                      </FormLabel>
-                      <Input
-                        {...field}
-                        type="number"
-                        id="professorRatingGiven"
-                        placeholder="7"
+                    {/* Median */}
+                    <FormField
+                      control={form.control}
+                      name="medianGrade"
+                      render={({ field }) => (
+                        <FormItem key={field.value}>
+                          <FormLabel htmlFor="professorEmailGiven">
+                            Median Grade
+                          </FormLabel>
+                          <Select
+                            onValueChange={(value) => field.onChange(value)}
+                            defaultValue={field.value}
+                          >
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select a grade" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectGroup {...field}>
+                                <SelectLabel>Letter Grade</SelectLabel>
+                                <SelectItem value="A">A</SelectItem>
+                                <SelectItem value="A-">A-</SelectItem>
+                                <SelectItem value="B+">B+</SelectItem>
+                                <SelectItem value="B">B</SelectItem>
+                                <SelectItem value="B-">B-</SelectItem>
+                                <SelectItem value="C+">C+</SelectItem>
+                                <SelectItem value="C">C</SelectItem>
+                                <SelectItem value="C-">C-</SelectItem>
+                                <SelectItem value="D+">D+</SelectItem>
+                                <SelectItem value="D">D</SelectItem>
+                                <SelectItem value="D-">D-</SelectItem>
+                                <SelectItem value="E">E</SelectItem>
+                                <SelectItem value="F">F</SelectItem>
+                              </SelectGroup>
+                            </SelectContent>
+                          </Select>
+                          <FormDescription>
+                            Select class Median Grade
+                          </FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    {/* Ratings */}
+                    <div className="flex gap-2 [&>div]:flex-1">
+                      <FormField
+                        control={form.control}
+                        name="professorRating"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel htmlFor="professorRatingGiven">
+                              Professor Rating
+                            </FormLabel>
+                            <Input
+                              {...field}
+                              type="number"
+                              id="professorRatingGiven"
+                              placeholder="7"
+                            />
+                            <FormDescription>
+                              Rate your professor out of 10
+                            </FormDescription>
+                            <FormMessage />
+                          </FormItem>
+                        )}
                       />
-                      <FormDescription>
-                        Rate your professor out of 10
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="courseRating"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel htmlFor="courseRatingGiven">
-                        Course Rating
-                      </FormLabel>
-                      <Input
-                        {...field}
-                        type="number"
-                        id="courseRatingGiven"
-                        placeholder="7"
-                      />
-                      <FormDescription>
-                        Rate the class out of 10
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-              {/* Review */}
-              <FormField
-                control={form.control}
-                name="review"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel htmlFor="reviewGiven">Review</FormLabel>
-                    <Textarea
-                      {...field}
-                      placeholder="Pour your heart out here..."
-                      id="reviewGiven"
-                      className="min-h-52"
-                    />
-                    <FormDescription>
-                      Enter your opinion about the class
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              {/* Layup */}
-              <FormField
-                control={form.control}
-                name="layup"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel htmlFor="layupGiven">
-                      Was this class a layup?
-                    </FormLabel>
-                    <div className="flex gap-3 items-center">
-                      <Checkbox
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
+                      <FormField
+                        control={form.control}
+                        name="courseRating"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel htmlFor="courseRatingGiven">
+                              Course Rating
+                            </FormLabel>
+                            <Input
+                              {...field}
+                              type="number"
+                              id="courseRatingGiven"
+                              placeholder="7"
+                            />
+                            <FormDescription>
+                              Rate the class out of 10
+                            </FormDescription>
+                            <FormMessage />
+                          </FormItem>
+                        )}
                       />
                     </div>
-                    <FormDescription>Check to select yes</FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                    {/* Review */}
+                    <FormField
+                      control={form.control}
+                      name="review"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel htmlFor="reviewGiven">Review</FormLabel>
+                          <Textarea
+                            {...field}
+                            placeholder="Pour your heart out here..."
+                            id="reviewGiven"
+                            className="min-h-52"
+                          />
+                          <FormDescription>
+                            Enter your opinion about the class
+                          </FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    {/* Layup */}
+                    <FormField
+                      control={form.control}
+                      name="layup"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel htmlFor="layupGiven">
+                            Was this class a layup?
+                          </FormLabel>
+                          <div className="flex gap-3 items-center">
+                            <Checkbox
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                            />
+                          </div>
+                          <FormDescription>Check to select yes</FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
 
-              <FormItem className="mt-4 mx-auto max-w-60">
-                <Button type="submit" className="w-full">
-                  Submit Review
-                </Button>
-              </FormItem>
-            </form>
-          </Form>
-        </CardContent>
-      </Card>
+                    <FormItem className="mt-4 mx-auto max-w-60">
+                      <Button type="submit" className="w-full">
+                        Submit Review
+                      </Button>
+                    </FormItem>
+                  </form>
+                </Form>
+              </CardContent>
+            </Card>
+          </div>
+          <DialogFooter className="sm:justify-start">
+            <DialogClose asChild>
+              <Button type="button" variant="secondary">
+                Close
+              </Button>
+            </DialogClose>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

@@ -19,17 +19,17 @@ export default async function CourseDetail({
   courseName,
 }: {
   reviewAction: (
-    data: ReviewDataSchema
+    data: ReviewDataSchema,
   ) => Promise<{ error?: boolean; message?: string }>;
   courseName: string;
 }) {
   // Fetch reviews for this course
   const course = await fetch(
-    `${process.env.API_ROOT}/api/courses?title=${courseName}`
+    `${process.env.API_ROOT}/api/courses?title=${courseName}`,
   ).then((res) => res.json());
   const course_id = course[0].id;
   const reviews = await fetch(
-    `${process.env.API_ROOT}/api/reviews/${course_id}`
+    `${process.env.API_ROOT}/api/reviews/${course_id}`,
   ).then((res) => res.json());
 
   // Fetch user email
@@ -52,7 +52,7 @@ export default async function CourseDetail({
         if (review.layup) {
           calledItLayup++;
         }
-      }
+      },
     );
 
     averageRating = (averageRating / reviews.length) * 10;
