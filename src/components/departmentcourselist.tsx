@@ -29,8 +29,6 @@ export default async function DepartmentCourseList({
     `${process.env.API_ROOT}/api/courses/?dept=${departmentCode.toLowerCase()}`
   );
   const courses: [Course] = await data.json();
-  console.log(data.status)
-  console.log(courses)
 
   return (
     <Card>
