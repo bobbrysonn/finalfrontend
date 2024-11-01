@@ -26,16 +26,18 @@ export default async function DepartmentCourseList({
   departmentCode: string;
 }) {
   const data = await fetch(
-    `${process.env.API_ROOT}/api/department/${departmentCode}/`
+    `${process.env.API_ROOT}/api/courses/?dept=${departmentCode.toLowerCase()}`
   );
   const courses: [Course] = await data.json();
+  console.log(data.status)
+  console.log(courses)
 
   return (
     <Card>
       <CardHeader>
         <CardTitle>{departmentCode}</CardTitle>
         <CardDescription>
-          View all courses in the {departmentCode} department
+          Viewing all courses in the {departmentCode} department
         </CardDescription>
       </CardHeader>
       <CardContent>
