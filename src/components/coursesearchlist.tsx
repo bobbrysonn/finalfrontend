@@ -36,7 +36,7 @@ export default async function CourseSearchList({ query }: { query: string }) {
       <CardHeader className="px-2 md:px-6 py-6">
         <CardTitle>{decodedQuery}</CardTitle>
         <CardDescription>
-          View all courses for the search {decodedQuery}
+          Viewing {courses.length} results for query: {decodedQuery}
         </CardDescription>
       </CardHeader>
       <CardContent className="px-0 md:px-6 md:py-6">
