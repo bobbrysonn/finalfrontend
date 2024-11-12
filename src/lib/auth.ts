@@ -27,19 +27,19 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
   },
   providers: [
     Credentials({
-      credentials: {email: {}, password: {}},
+      credentials: {username: {}, password: {}},
       // @ts-ignore
       authorize: async (credentials) => {
         let user = null
 
         try {
-          const {email, password} = LoginFormSchema.parse(credentials)
+          const {netID, password} = LoginFormSchema.parse(credentials)
 
           /* Authenticate user */
           const response = await fetch(`${process.env.API_ROOT}/auth/jwt/create/`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({email, password}),
+            body: JSON.stringify({username: netID, password}),
           })
 
           /* Handle response */

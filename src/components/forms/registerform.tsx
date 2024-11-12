@@ -1,181 +1,162 @@
 "use client";
 
 import Link from "next/link";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { RegisterFormSchema } from "@/lib/definitions";
+import {zodResolver} from "@hookform/resolvers/zod";
+import {useForm} from "react-hook-form";
+import {z} from "zod";
+import {RegisterFormSchema} from "@/lib/definitions";
 
-import { Button } from "@/components/ui/button";
+import {Button} from "@/components/ui/button";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
 } from "@/components/ui/card";
 import {
-  Form,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+    Form,
+    FormDescription,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import {Input} from "@/components/ui/input";
+import {Loader} from "lucide-react";
 
-export default function RegisterForm({
-  register,
-}: {
-  register: (
-    data: z.infer<typeof RegisterFormSchema>
-  ) => Promise<{
-    success?: boolean;
-    error?: boolean;
-    message?: string;
-    errorBody?: { username?: string; email?: string };
-  }>;
-}) {
-  const form = useForm<z.infer<typeof RegisterFormSchema>>({
-    defaultValues: {
-      email: "",
-      username: "",
-      password: "",
-      confirmPassword: "",
-    },
-    resolver: zodResolver(RegisterFormSchema),
-  });
+type RegisterFormProps = {
+    register: () => Promise<{
+        success?: boolean,
+        error?: boolean,
+        message?: string,
+        errorBody?: { netID?: string, email?: string }
+    }>;
+}
+export default function RegisterForm({register}: RegisterFormProps) {
+    /* Create the form */
+    const form = useForm<z.infer<typeof RegisterFormSchema>>({
+        defaultValues: {
+            netID: "",
+            password: "",
+            confirmPassword: "",
+        },
+        resolver: zodResolver(RegisterFormSchema),
+    });
 
-  async function handleRegister(data: z.infer<typeof RegisterFormSchema>) {
-    const res = await register(data);
+    /* Get form state */
+    const {
+        formState: {isSubmitting, isSubmitSuccessful},
+    } = form;
 
-    if (res?.error) {
-      if (res.errorBody?.username) {
-        form.setError("username", {
-          message: res.errorBody.username,
-        });
-      }
+    async function handleRegister(data: z.infer<typeof RegisterFormSchema>) {
+        const res = await register(data);
 
-      if (res.errorBody?.email) {
-        form.setError("email", {
-          message: res.errorBody.email,
-        });
-      }
+        if (res?.error) {
+            if (res.errorBody?.netID) {
+                form.setError("netID", {
+                    message: res.errorBody.netID,
+                });
+            }
+        }
     }
-  }
 
-  return (
-      <Card className="mx-auto max-w-[32rem]">
-        <CardHeader>
-          <CardTitle className="text-2xl">Register</CardTitle>
-          <CardDescription>
-            Enter your details below to create an account
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit((data) => handleRegister(data))}>
-              <FormField
-                control={form.control}
-                name="username"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel htmlFor="usernamegiven">Username</FormLabel>
-                    <Input
-                      {...field}
-                      type="text"
-                      id="usernamegiven"
-                      autoComplete="username"
-                      placeholder="johndoe"
-                    />
-                    <FormDescription>Enter your username</FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel htmlFor="email">Email</FormLabel>
-                    <Input
-                      {...field}
-                      type="email"
-                      id="email"
-                      autoComplete="email"
-                      placeholder="john.doe.26@dartmouth.edu"
-                    />
-                    <FormDescription>
-                      Enter your school email address
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem className="mt-2">
-                    <div className="flex items-center">
-                      <FormLabel htmlFor="password">Password</FormLabel>
-                    </div>
-                    <Input
-                      {...field}
-                      type="password"
-                      id="password"
-                      autoComplete="new-password"
-                      aria-autocomplete="list"
-                      required
-                    />
-                    <FormDescription>
-                      Password must be at least 8 characters
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="confirmPassword"
-                render={({ field }) => (
-                  <FormItem className="mt-2">
-                    <div className="flex items-center">
-                      <FormLabel htmlFor="confirmPassword">
-                        Confirm password
-                      </FormLabel>
-                    </div>
-                    <Input
-                      {...field}
-                      type="password"
-                      id="confirmPassword"
-                      autoComplete="new-password"
-                      aria-autocomplete="list"
-                      required
-                    />
-                    <FormDescription>
-                      Password must match the one above
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormItem className="mt-4">
-                <Button type="submit" className="w-full ">
-                  Register
-                </Button>
-              </FormItem>
-            </form>
-          </Form>
+    return (
+        <Card className="mx-auto max-w-[32rem]">
+            <CardHeader>
+                <CardTitle className="text-2xl">Register</CardTitle>
+                <CardDescription>
+                    Enter your details below to create an account
+                </CardDescription>
+            </CardHeader>
+            <CardContent>
+                <Form {...form}>
+                    <form onSubmit={form.handleSubmit((data) => handleRegister(data))}>
+                        <FormField
+                            control={form.control}
+                            name="netID"
+                            render={({field}) => (
+                                <FormItem>
+                                    <FormLabel htmlFor="netIDgiven">Net ID</FormLabel>
+                                    <Input
+                                        {...field}
+                                        type="text"
+                                        id="netIDgiven"
+                                        autoComplete="username"
+                                    />
+                                    <FormDescription>Enter your net id</FormDescription>
+                                    <FormMessage/>
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="password"
+                            render={({field}) => (
+                                <FormItem className="mt-2">
+                                    <div className="flex items-center">
+                                        <FormLabel htmlFor="password">Password</FormLabel>
+                                    </div>
+                                    <Input
+                                        {...field}
+                                        type="password"
+                                        id="password"
+                                        autoComplete="new-password"
+                                        aria-autocomplete="list"
+                                        required
+                                    />
+                                    <FormDescription>
+                                        Password must be at least 8 characters
+                                    </FormDescription>
+                                    <FormMessage/>
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="confirmPassword"
+                            render={({field}) => (
+                                <FormItem className="mt-2">
+                                    <div className="flex items-center">
+                                        <FormLabel htmlFor="confirmPassword">
+                                            Confirm password
+                                        </FormLabel>
+                                    </div>
+                                    <Input
+                                        {...field}
+                                        type="password"
+                                        id="confirmPassword"
+                                        autoComplete="new-password"
+                                        aria-autocomplete="list"
+                                        required
+                                    />
+                                    <FormDescription>
+                                        Password must match the one above
+                                    </FormDescription>
+                                    <FormMessage/>
+                                </FormItem>
+                            )}
+                        />
+                        <FormItem className="mt-4">
+                            <Button
+                                type="submit"
+                                className="w-full flex gap-2"
+                                disabled={isSubmitting || isSubmitSuccessful}
+                            >
+                                {isSubmitting ? "" : "Register"}
+                                {isSubmitting && <Loader className="w-4 h-4 animate-spin"/>}
+                            </Button>
+                        </FormItem>
+                    </form>
+                </Form>
 
-          <div className="mt-8 text-center text-sm">
-            Already have an account?{" "}
-            <Link href="/auth/login" className="underline">
-              Login
-            </Link>
-          </div>
-        </CardContent>
-      </Card>
-  );
+                <div className="mt-8 text-center text-sm">
+                    Already have an account?{" "}
+                    <Link href="/auth/login" className="underline">
+                        Login
+                    </Link>
+                </div>
+            </CardContent>
+        </Card>
+    );
 }

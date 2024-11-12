@@ -34,7 +34,7 @@ export default function LoginForm({
 }) {
   const form = useForm<z.infer<typeof LoginFormSchema>>({
     defaultValues: {
-      email: "",
+      netID: "",
       password: "",
     },
     resolver: zodResolver(LoginFormSchema),
@@ -66,19 +66,18 @@ export default function LoginForm({
           <form onSubmit={form.handleSubmit(handleLogin)}>
             <FormField
               control={form.control}
-              name="email"
+              name="netID"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="emailgiven">Email</FormLabel>
+                  <FormLabel htmlFor="netIDgiven">Net ID</FormLabel>
                   <Input
                     {...field}
-                    type="email"
-                    id="emailgiven"
-                    autoComplete="email"
-                    placeholder="john.doe.26@dartmouth.edu"
+                    type="text"
+                    id="netIDgiven"
+                    autoComplete="username"
                     required
                   />
-                  <FormDescription>Enter your email</FormDescription>
+                  <FormDescription>Enter your net id</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
