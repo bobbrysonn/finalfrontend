@@ -4,14 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d36fc8cd-59ca-4735-ad89-e629230ec7f6" name="Changes" comment="Fix: Added IDE files. Reverted to npm">
-      <change afterPath="$PROJECT_DIR$/src/app/best-classes/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/layups/page.tsx" afterDir="false" />
+    <list default="true" id="d36fc8cd-59ca-4735-ad89-e629230ec7f6" name="Changes" comment="Feat: Added best classes and layup pages">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/breadcrumbguide.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/breadcrumbguide.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/header.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/navlinks.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/navlinks.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/globals.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,7 +102,7 @@
       <workItem from="1727396905769" duration="6004000" />
       <workItem from="1731224877006" duration="124000" />
       <workItem from="1731225007497" duration="1312000" />
-      <workItem from="1731368005686" duration="2599000" />
+      <workItem from="1731368005686" duration="3984000" />
     </task>
     <task id="LOCAL-00001" summary="Fix: Added IDE files. Reverted to npm">
       <option name="closed" value="true" />
@@ -117,7 +112,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731368123397</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Feat: Added best classes and layup pages">
+      <option name="closed" value="true" />
+      <created>1731370855723</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1731370855723</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -125,6 +128,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Fix: Added IDE files. Reverted to npm" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix: Added IDE files. Reverted to npm" />
+    <MESSAGE value="Feat: Added best classes and layup pages" />
+    <option name="LAST_COMMIT_MESSAGE" value="Feat: Added best classes and layup pages" />
   </component>
 </project>
