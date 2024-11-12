@@ -26,7 +26,7 @@ import {Input} from "@/components/ui/input";
 import {Loader} from "lucide-react";
 
 type RegisterFormProps = {
-    register: () => Promise<{
+    register: (formData: z.infer<typeof RegisterFormSchema>) => Promise<{
         success?: boolean,
         error?: boolean,
         message?: string,
